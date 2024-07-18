@@ -1,9 +1,9 @@
 // Personal API Key for OpenWeatherMap API
-const apiKey ='962229b4b6fab0d2c0a4cde8e50b8042';
-const nowDate = new Date();
+const apiKey =',&appid=962229b4b6fab0d2c0a4cde8e50b8042&units=imperial';
 // Base URL for OpenWeatherMap API
-const baseURL ='https://api.openweathermap.org/data/2.5/weather?q=';
+const baseURL ='https://api.openweathermap.org/data/2.5/weather?zip=';
 // handle form
+const nowDate = new Date();
 const zipCode = document.getElementById('zip');
 const feeling = document.getElementById('feelings');
 const date = document.getElementById('date');
@@ -13,7 +13,7 @@ const content = document.getElementById('content');
 document.getElementById('generate').addEventListener('click', performAction);
 /* Function called by event listener */
 function performAction() {
-  getInformation(`https://api.openweathermap.org/data/2.5/weather?zip=${zipCode.value},&appid=${apiKey}&units=imperial`)
+  getInformation(baseURL, zipCode.value, apiKey)
   .then(function(data){
     //Post requsete to save data in the server
     postData('/postData', {date: nowDate, temp: data.main.temp, content: feeling.value});
@@ -24,8 +24,8 @@ function performAction() {
   )
 }
 /* Function to GET Web API Data*/
-const getInformation = async (url)=>{
-  const res = await fetch(url)
+const getInformation = async (url, zip, key)=>{
+  const res = await fetch(url+zip+key)
   try{
     const data = await res.json();
     return data;
