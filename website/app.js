@@ -58,7 +58,7 @@ const updateUI = async () => {
     const allData = await request.json();
     console.log(allData);
     date.innerHTML = allData[allData.length-1].date;
-    temp.innerHTML = allData[allData.length-1].temp;
+    temp.innerHTML = allData[allData.length-1].temp +' degrees';
     content.innerHTML = allData[allData.length-1].content;
   }catch(err){
     console.log("get error",err);
