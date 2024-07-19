@@ -16,12 +16,11 @@ function performAction() {
   getInformation(baseURL, zipCode.value, apiKey)
   .then(function(data){
     //Post requsete to save data in the server
-    postData('/postData', {date: nowDate, temp: data.main.temp, content: feeling.value});
-    updateUI()
+    return postData('/postData', {date: nowDate, temp: data.main.temp, content: feeling.value})
+    .then(
+      updateUI()
+    )
   })
-  .then(
-    // updateUI()
-  )
 }
 /* Function to GET Web API Data*/
 const getInformation = async (url, zip, key)=>{
